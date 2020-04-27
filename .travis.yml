@@ -6,7 +6,15 @@
 
 os: linux
 
+before_install:
+  - npm install remark-cli remark-validate-links
+
 script:
+  - mkdir -p .travis
+  - cd .travis
+  - wget https://raw.githubusercontent.com/louiscklaw/travis-playlist/master/travis-test-markdown/ci-build.sh
+  - bash .travis/ci-build.sh | tee markdown-test.log
+  - cd -
   - wget https://raw.githubusercontent.com/louiscklaw/travis-playlist/master/travis-build-merger/merge_if_success.sh
   - bash merge_if_success.sh | tee merge.log
 
